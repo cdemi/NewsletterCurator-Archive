@@ -94,7 +94,7 @@
                         const response = await fetch('https://api.github.com/repos/cdemi/NewsletterCurator-Archive/contents/');
                         const data = await response.json();
                         let htmlString = '<ul>';
-                        for (let file of data) {
+                        for (let file of data.reverse()) {
                             if (file.name.match(/\d{4}.*.html/g))
                                 htmlString += `<li><a href="${file.path}" target='_blank'">${file.name.replace('.html','')}</a></li>`;
                         }
