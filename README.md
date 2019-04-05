@@ -1,3 +1,3 @@
-# cdemi's Curated	📰 Newsletter Archive
+# cdemi's Curated 📰 Newsletter Archive
 
-To view a list of all previously published Newsletters, please visit: https://cdemi.github.io/NewsletterCurator-Archive/
+To view a list of all previously published Newsletters, please visit: https://newsletters.cdemi.io/
