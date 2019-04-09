@@ -65,24 +65,23 @@
       }
 
       ul {
-        padding: 0;
       }
 
-      ul li {
-        display: inline-block;
-        padding-right: 10px;
-      }
-
-      ul li:not(:last-child):after {
-        padding-left: 10px;
-        content: "-";
-      }
-
-      ul li:first-child:after {
-        content: "(latest)";
-        padding-left: 2px;
-        color: #ababab;
+      ul li a span.timeAgo{
+        color: #ababab !important;
         font-size: 11px;
+      }
+      ul li a span.timeAgo:before{
+        content:"(";
+      }
+      ul li a span.timeAgo:after{
+        content:")";
+      }
+      ul li:first-child{
+        font-weight: bold;
+      }
+      ul li:first-child a span.timeAgo:after {
+        content: ") (latest)";
       }
     </style>
 
@@ -108,6 +107,8 @@
       }
 
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js" integrity="sha256-AdQN98MVZs44Eq2yTwtoKufhnU+uZ7v2kXnD5vqzZVo=" crossorigin="anonymous"></script>
+
   </head>
   <body style="margin:0; padding:0; background-color:#F2F2F2;">
     <center>
@@ -167,6 +168,8 @@
           >
           </td>
           <script>
+            moment.locale(window.navigator.userLanguage || window.navigator.language);
+
             (async () => {
               const response = await fetch(
                 "https://api.github.com/repos/cdemi/NewsletterCurator-Archive/contents/archives/"
@@ -175,12 +178,10 @@
               let htmlString = "<ul>";
               for (let file of data.reverse()) {
                 if (file.name.match(/\d{4}.*.html/g))
+                  var newsletterMoment = moment.utc(file.name.replace(".html","") + " 09:00");
                   htmlString += `<li><a href="${
                     file.path
-                  }">${file.name.replace(
-                    ".html",
-                    ""
-                  )}</a></li>`;
+                  }">${newsletterMoment.format("LL")} <span class='timeAgo'>${newsletterMoment.fromNow()}</span></a></li>`;
               }
               htmlString += "</ul>";
               document.getElementById("archiveList").innerHTML = htmlString;
