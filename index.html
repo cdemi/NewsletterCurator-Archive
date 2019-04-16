@@ -178,7 +178,7 @@
               let htmlString = "<ul>";
               for (let file of data.reverse()) {
                 if (file.name.match(/\d{4}.*.html/g))
-                  var newsletterMoment = moment.utc(file.name.replace(".html","") + " 09:00");
+                  var newsletterMoment = moment.utc(file.name.replace(".html","") + " 11:00");
                   htmlString += `<li><a href="${
                     file.path
                   }">${newsletterMoment.format("LL")} <span class='timeAgo'>${newsletterMoment.fromNow()}</span></a></li>`;
